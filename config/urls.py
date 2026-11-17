@@ -19,11 +19,21 @@ from django.urls import path
 from rest_framework.routers import SimpleRouter
 from rest_framework.authtoken import views
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from users.api.views import UserProfileExampleViewSet
+from users.api.views import (
+    CustomerViewSet,
+    ParkingLotViewSet,
+    ParkingSessionViewSet,
+    UserProfileExampleViewSet,
+    VehicleViewSet,
+)
 
 router = SimpleRouter()
 
 router.register("users", UserProfileExampleViewSet, basename="users")
+router.register("api/customers", CustomerViewSet, basename="customer")
+router.register("api/vehicles", VehicleViewSet, basename="vehicle")
+router.register("api/parking-lots", ParkingLotViewSet, basename="parking-lot")
+router.register("api/parking-sessions", ParkingSessionViewSet, basename="parking-session")
 
 urlpatterns = [
     path("admin/", admin.site.urls),

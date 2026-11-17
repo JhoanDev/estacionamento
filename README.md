@@ -424,3 +424,35 @@ Bons estudos! Para mais informações, consulte a documentação oficial do DRF:
 
 Equipe LISA
 _
+
+## API de gerenciamento de estacionamento
+
+A API permite cadastrar clientes, associar veículos, configurar estacionamentos
+e registrar entradas e saídas. Inicie o servidor e use os endpoints abaixo com
+JSON:
+
+| Método | Endpoint | Ação |
+| --- | --- | --- |
+| GET, POST | `/api/customers/` | Listar e cadastrar clientes |
+| GET, POST | `/api/vehicles/` | Listar e cadastrar veículos |
+| GET, POST | `/api/parking-lots/` | Listar e cadastrar estacionamentos |
+| GET | `/api/parking-lots/{id}/occupancy/` | Consultar capacidade, ocupação e vagas disponíveis |
+| GET, POST | `/api/parking-sessions/` | Consultar registros e registrar entrada |
+| POST | `/api/parking-sessions/{id}/checkout/` | Registrar saída |
+
+Para registrar uma entrada, envie `vehicle` e `parking_lot` com os respectivos
+IDs. A resposta inclui os horários de entrada e saída; `exit_at` permanece nulo
+enquanto o veículo estiver estacionado. A API recusa entradas para veículos que
+já estejam no estacionamento ou quando não houver vagas. A saída libera a vaga.
+O endpoint de ocupação informa `capacity`, `occupied_spaces` e
+`available_spaces`.
+
+Depois de instalar as dependências, aplique as migrações antes de iniciar o
+servidor:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+Os endpoints estão documentados interativamente em `/swagger/`.
