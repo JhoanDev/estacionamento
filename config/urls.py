@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import RedirectView
 from rest_framework.routers import SimpleRouter
 from rest_framework.authtoken import views
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
@@ -36,6 +37,7 @@ router.register("api/parking-lots", ParkingLotViewSet, basename="parking-lot")
 router.register("api/parking-sessions", ParkingSessionViewSet, basename="parking-session")
 
 urlpatterns = [
+    path("", RedirectView.as_view(url="/swagger/", permanent=False)),
     path("admin/", admin.site.urls),
     path("api/token-auth/", views.obtain_auth_token),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),

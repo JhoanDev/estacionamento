@@ -18,6 +18,11 @@ class ParkingApiTests(APITestCase):
         )
         self.sessions_url = reverse("parking-session-list")
 
+    def test_root_redirects_to_api_documentation(self):
+        response = self.client.get("/")
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+        self.assertEqual(response["Location"], "/swagger/")
+
     def test_customer_and_vehicle_can_be_registered(self):
         customer_response = self.client.post(
             reverse("customer-list"),
