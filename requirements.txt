@@ -11,12 +11,15 @@ jsonschema==4.19.0
 jsonschema-specifications==2023.7.1
 packaging==23.1
 pluggy==1.4.0
+pre-commit==4.2.0
 pytest==8.1.1
+pytest-cov==6.2.1
 pytest-django==4.8.0
 pytz==2023.3
 PyYAML==6.0.1
 referencing==0.30.2
 rpds-py==0.30.0
+ruff==0.11.13
 sqlparse==0.4.4
 tomli==2.0.1
 typing_extensions==4.7.1

@@ -456,3 +456,39 @@ python manage.py runserver
 ```
 
 Os endpoints estão documentados interativamente em `/swagger/`.
+
+### Verificações antes do commit
+
+O `pre-commit` executa Ruff, a checagem do Django e todos os testes descobertos
+por `pytest`, gerando também `coverage.xml` para análise no Sonar.
+
+Com o ambiente virtual ativado, instale as dependências e configure o hook:
+
+```bash
+python -m pip install -r requirements.txt
+pre-commit install
+```
+
+Depois disso, `git commit` executa as verificações automaticamente. Para
+executá-las manualmente em todos os arquivos:
+
+```bash
+pre-commit run --all-files
+```
+
+O arquivo `sonar-project.properties` configura as pastas de código e testes,
+exclui migrações da análise e aponta para o relatório de cobertura. Para enviar
+uma análise ao SonarQube Cloud, instale o SonarScanner CLI e defina
+`SONAR_ORGANIZATION` e `SONAR_TOKEN` no ambiente (não salve o token no código):
+
+```bash
+sonar-scanner \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.organization="$SONAR_ORGANIZATION" \
+  -Dsonar.token="$SONAR_TOKEN"
+```
+
+Para um servidor SonarQube próprio, informe a URL do servidor em vez de
+`https://sonarcloud.io` e use um token gerado nessa instância. A análise local
+da extensão SonarQube for IDE não exige essa etapa; o envio pelo SonarScanner
+depende de acesso a uma instância e de credenciais.
